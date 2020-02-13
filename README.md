@@ -18,6 +18,7 @@ CREATE TABLE `receipt_list` (
     `id` INT(5) NOT NULL auto_increment,
     `phase` char(5) NOT NULL,
     `number` VARCHAR(8)  NOT NULL,
+    `result` VARCHAR(18),
     PRIMARY KEY(`id`),
     UNIQUE KEY(`phase`, `number`)
 ) ENGINE=InnoDB CHARACTER SET=utf8 ;
