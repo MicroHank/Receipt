@@ -2,6 +2,7 @@
 	define("OCR_PATH", 'C:\Program Files\Tesseract-OCR\tesseract.exe') ;
 
 	ini_set("max_execution_time", 300) ;
+	date_default_timezone_set("Asia/Taipei") ;
 
 	/**
 	 * 取得統一發票第幾期
