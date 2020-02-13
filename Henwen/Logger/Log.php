@@ -12,7 +12,7 @@
 		// Class "LineFormatter" 實體與相關參數
 		private $formatter ;
 		private $log_date = "Y-m-d H:i:s" ;
-		private $log_output = "[%datetime%] %channel%.%level_name%: %message% %context%\n" ;
+		private $log_output = "[%datetime%] %channel%.%level_name%: %message%\n" ;
 
 		// MongoDB 連線資源、 連線資料庫名稱、連線集合名稱
 		private $conn ;
@@ -37,7 +37,7 @@
 			$stream = new StreamHandler('log/info.log', Logger::INFO) ;
 			$stream->setFormatter($this->formatter) ;
 			$logger->pushHandler($stream) ;
-			$logger->info("[IP=". IP::get() ."] ". $message, $context) ;
+			$logger->info($message, $context) ;
 		}
 
 		public function warning($message = "", $file = "", $context = [])
