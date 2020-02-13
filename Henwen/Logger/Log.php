@@ -5,14 +5,13 @@
 	use Monolog\Handler\StreamHandler ;
 	use Monolog\Handler\MongoDBHandler ;
 	use Monolog\Formatter\LineFormatter ;
-	use Henwen\Common\IP ;
 
 	class Log
 	{
 		// Class "LineFormatter" 實體與相關參數
 		private $formatter ;
 		private $log_date = "Y-m-d H:i:s" ;
-		private $log_output = "[%datetime%] %channel%.%level_name%: %message%\n" ;
+		private $log_output = "[%datetime%] %channel%.%level_name%: %message% %context%\n" ;
 
 		// MongoDB 連線資源、 連線資料庫名稱、連線集合名稱
 		private $conn ;
@@ -34,7 +33,7 @@
 		public function info($message = "", $file = "", $context = [])
 		{
 			$logger = new Logger($file) ;
-			$stream = new StreamHandler('log/info.log', Logger::INFO) ;
+			$stream = new StreamHandler(__DIR__.'/../../log/info.log', Logger::INFO) ;
 			$stream->setFormatter($this->formatter) ;
 			$logger->pushHandler($stream) ;
 			$logger->info($message, $context) ;
@@ -43,19 +42,19 @@
 		public function warning($message = "", $file = "", $context = [])
 		{
 			$logger = new Logger($file) ;
-			$stream = new StreamHandler('log/warning.log', Logger::WARNING) ;
+			$stream = new StreamHandler(__DIR__.'/../../log/info.log', Logger::WARNING) ;
 			$stream->setFormatter($this->formatter) ;
 			$logger->pushHandler($stream) ;
-			$logger->info("[IP=". IP::get() ."] ". $message, $context) ;
+			$logger->info($message, $context) ;
 		}
 
 		public function error($message = "", $file = "", $context = [])
 		{
 			$logger = new Logger($file) ;
-			$stream = new StreamHandler('log/error.log', Logger::ERROR) ;
+			$stream = new StreamHandler(__DIR__.'/../../log/info.log', Logger::ERROR) ;
 			$stream->setFormatter($this->formatter) ;
 			$logger->pushHandler($stream) ;
-			$logger->info("[IP=". IP::get() ."] ". $message, $context) ;
+			$logger->info($message, $context) ;
 		}
 
 
