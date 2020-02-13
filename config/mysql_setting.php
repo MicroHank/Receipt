@@ -1,7 +1,7 @@
 <?php
 	\DB::$user = "root" ;
 	\DB::$password = "" ;
-	\DB::$dbName = "mask" ;
+	\DB::$dbName = "receipt" ;
 	\DB::$host = "127.0.0.1" ;
 	\DB::$port = "3306" ; 
 	\DB::$encoding = "utf8" ;
