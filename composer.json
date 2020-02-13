@@ -18,7 +18,8 @@
     "autoload": {
         "psr-4": {
             "Henwen\\Common\\":"Henwen/Common/",
-            "Henwen\\Logger\\":"Henwen/Logger/"
+            "Henwen\\Logger\\":"Henwen/Logger/",
+            "Henwen\\Model\\":"model"
         },
         "files":[
             "config/mysql_setting.php",
