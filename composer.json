@@ -6,7 +6,8 @@
         "sergeytsalkov/meekrodb": "^2.3",
         "nesbot/carbon": "^1.37",
         "monolog/monolog": "^1.24",
-        "league/csv": "^8.2"
+        "league/csv": "^8.2",
+        "thiagoalessio/tesseract_ocr": "^2.9"
     },
     "authors": [
         {
