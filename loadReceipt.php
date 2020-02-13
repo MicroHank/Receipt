@@ -10,16 +10,13 @@
     //----------------------取得統一發票資料--------------------------//
 	try {
 		$log = new Log() ;
-		$time = strtotime("2 months ago") ;
-		$receipt_year = date("Y", $time) - 1911 ; // 108
-		$receipt_month= date("m", $time) ; // 11
-		//$receipt_date = $receipt_year.$receipt_month ; // 10811
-		$receipt_date = "10811" ;
-		$log->info("取得 $receipt_year-$receipt_month 統一發票號碼", __FILE__, array()) ;
+		//$receipt_phase = getReceiptPhase() ;
+		$receipt_phase = "10801" ;
+		$log->info("取得 $receipt_phase 統一發票號碼", __FILE__, array()) ;
 
 		// 取得本次統一發票頁面 HTML String
 		$curlobj = curl_init();
-    	curl_setopt($curlobj, CURLOPT_URL, "https://www.etax.nat.gov.tw/etw-main/web/ETW183W2_$receipt_date/");
+    	curl_setopt($curlobj, CURLOPT_URL, "https://www.etax.nat.gov.tw/etw-main/web/ETW183W2_$receipt_phase/");
     	curl_setopt($curlobj, CURLOPT_RETURNTRANSFER, true) ;
     	$html = curl_exec($curlobj) ;
 
@@ -54,10 +51,30 @@
 			$log->info("本期沒有增開獎", __FILE__, array()) ;
 		}
 
+		\DB::startTransaction() ;
+
 		// 將統一發票號碼寫入資料庫
+		\DB::insertIgnore("receipt_phase", 
+			array("phase" => $receipt_phase, "prize_name" => "特別獎", "prize_number" => $special_prize));
+
+		\DB::insertIgnore("receipt_phase",
+			array("phase" => $receipt_phase, "prize_name" => "特獎", "prize_number" => $grand_prize));
+		
+		foreach ($first_prize as $key => $number) {
+			\DB::insertIgnore("receipt_phase",
+				array("phase" => $receipt_phase, "prize_name" => "頭獎", "prize_number" => $number));
+		}
+		
+		foreach ($add_prize as $key => $number) {
+			\DB::insertIgnore("receipt_phase", 
+				array("phase" => $receipt_phase, "prize_name" => "增開獎", "prize_number" => $number));
+		}
+		\DB::commit() ;
+		$log->info("將統一發票開獎號碼寫入資料庫", __FILE__, array()) ;
 
 	} catch (\Exception $e) {
 		$log->info($e->getMessage(), __FILE__, array()) ;
+		\DB::rollback() ;
 		exit ;
 	}
 	
