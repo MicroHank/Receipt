@@ -1,4 +1,6 @@
-﻿[MySQL Schema]
+﻿統一發票資料來源：https://www.etax.nat.gov.tw/etw-main/web/ETW183W1/
+
+[MySQL Schema]
 
 Database: receipt
 Table: receipt_month(本月統一號碼), receipt_list(個人統一發票)
@@ -9,7 +11,7 @@ CREATE TABLE `receipt_phase` (
     `phase` char(5) NOT NULL,
     `prize_name` VARCHAR(20)  NOT NULL,
     `prize_number` VARCHAR(8)  NOT NULL,
-    PRIMARY KEY(`phase`, `prize_name`)
+    PRIMARY KEY(`phase`, `prize_name`, `prize_number`)
 ) ENGINE=InnoDB CHARACTER SET=utf8 ;
 
 CREATE TABLE `receipt_list` (
