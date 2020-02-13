@@ -54,11 +54,19 @@
 				}
 			}
 		}
-		
+	} catch (\Exception $e) {
+		$log->info($e->getMessage(), __FILE__, array()) ;
+		\DB::rollback() ;
+	}
+
+	\DB::startTransaction() ;
+
+	try {
 		// 將統一發票號碼寫入資料庫：Table receipt_list
 		\DB::insertIgnore("receipt_list", $receipt_list) ;
 		\DB::commit() ;
 		$log->info("將統一發票輸入資料庫完成", __FILE__, array()) ;
+		
 		$total = \DB::queryFirstField("SELECT count(number) AS total FROM receipt_list WHERE phase = %s", $receipt_phase) ;
 		if (! empty($total)) {
 			$log->info("統一發票 $receipt_phase 期共有 $total 張發票", __FILE__, array()) ;
