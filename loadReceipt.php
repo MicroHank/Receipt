@@ -11,7 +11,7 @@
 	try {
 		$log = new Log() ;
 		//$receipt_phase = getReceiptPhase() ;
-		$receipt_phase = "10801" ;
+		$receipt_phase = "10811" ;
 		$log->info("取得 $receipt_phase 統一發票號碼", __FILE__, array()) ;
 
 		// 取得本次統一發票頁面 HTML String
@@ -31,21 +31,22 @@
     	preg_match_all("/<td.+headers.+class=.number.> (.*) <\/td>/", $html, $td_numbers) ;
     	$special_prize = $td_numbers[1][0] ; // 特別獎 1000 萬
     	$grand_prize   = $td_numbers[1][1] ; // 特獎 200 萬
-    	$log->info("特別獎", __FILE__, array("special_prize" => $special_prize)) ;
-    	$log->info("特獎", __FILE__, array("grand_prize" => $grand_prize)) ;
+    	$log->info("特別獎 $special_prize", __FILE__) ;
+    	$log->info("特獎 $grand_prize", __FILE__) ;
 
     	// 頭獎 20 萬
     	$first_prize = array() ;
     	preg_match_all("/\d{8}/", $td_numbers[1][2], $match) ;
 		$first_prize = $match[0] ;
-		$log->info("頭獎", __FILE__, array("first_prize" => $first_prize)) ;
+		$log->info("頭獎 ".join(",", $first_prize), __FILE__) ;
+
 
 		// 增開獎 200 元
 		$add_prize = array() ;
 		if (isset($td_numbers[1][3])) {
 			preg_match_all("/\d{3}/", $td_numbers[1][3], $match) ;
 			$add_prize = $match[0] ;
-			$log->info("增開獎", __FILE__, array("add_prize" => $add_prize)) ;
+			$log->info("增開獎 ".join(",", $add_prize), __FILE__) ;
 		}
 		else {
 			$log->info("本期沒有增開獎", __FILE__, array()) ;
