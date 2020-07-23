@@ -1,4 +1,8 @@
-﻿統一發票資料來源：https://www.etax.nat.gov.tw/etw-main/web/ETW183W1/
+﻿<h3>:newspaper: 統一發票兌獎程式</h3>
+<li>統一發票資料來源：https://www.etax.nat.gov.tw/etw-main/web/ETW183W1/</li>
+<li>簡易爬蟲: 至財政部網站抓取各期獎號儲存至資料庫, 包括頭獎、特別獎、特獎、增開獎</li>
+<li>利用套件 TesseractOCR + 正規表示式, 取得統一發票圖片之獎號</li>
+<li>撰寫兌獎程式, 將結果寫至 Log 檔</li>
 
 [MySQL Schema]
 
