@@ -36,3 +36,9 @@ CREATE TABLE `receipt_list` (
 [2020-02-13 02:11:41] E:\xampp\htdocs\receipt\recognizeReceipt.php.INFO: [IP=127.0.0.1] 統一發票號碼：74295298 []
 [2020-02-13 02:11:41] E:\xampp\htdocs\receipt\recognizeReceipt.php.INFO: [IP=127.0.0.1] 將統一發票輸入資料庫完成 []
 [2020-02-13 02:11:41] E:\xampp\htdocs\receipt\recognizeReceipt.php.INFO: [IP=127.0.0.1] 統一發票 10901 期共有 5 張發票 []
+
+loadReceipt.php: 取得統一發票號碼
+
+identifyReceipt.php: 辨識並取得統一發票圖片裡的號碼
+
+checkReceipt.php: 兌獎程式
